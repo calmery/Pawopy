@@ -15,6 +15,31 @@ class Mastodon :
         self.api_url = config.api_url if ( 'api_url' in config ) else DEFAULT_REST_ROOT
         self.config  = config
     
+    def getAuth( self ) :
+        return self.config['access_token']
+    
+    def setAuth( self, config ) :
+        self.config = config
+    
+    def get( self, path, params={} ) :
+        return self.request( requests.get, path, params )
+    
+    def post( self, path, params={} ) :
+        return self.request( requests.post, path, params )
+    
+    def delete( self, path, params={} ) :
+        return self.request( requests.delete, path, params )
+    
+    def request( self, method, path, params={} ) :
+        response = method( self.api_url + path, headers={
+            'Authorization': 'Bearer ' + self.config['access_token']
+        }, params=params )
+
+        if response.status_code == 200 :
+            return ( True, response.json() )
+        else :
+            return ( False, response.reason )
+    
     @staticmethod
     def createOAuthApp( url=DEFAULT_OAUTH_APPS_ENDPOINT, 
                         client_name='mastodon-python', 
