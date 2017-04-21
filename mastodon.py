@@ -26,7 +26,10 @@ class Mastodon :
                 'scopes'       : scopes
             } )
             
-            return response.json() if response.status_code == 200 else response.reason
+            if response.status_code == 200 :
+                return ( True, response.json() )
+            else :
+                return ( False, response.reason )
     
     @staticmethod
     def getAuthorizationUrl( client_id, 
@@ -42,7 +45,7 @@ class Mastodon :
     
     @staticmethod
     def getAccessToken( client_id, 
-                        client_secret, 
+                        client_secret,
                         authorization_code, 
                         base_url=DEFAULT_REST_BASE, 
                         redirectUri='urn:ietf:wg:oauth:2.0:oob' ) :
@@ -55,5 +58,8 @@ class Mastodon :
             'client_secret': client_secret,
             'code'         : authorization_code
         } )
-            
-        return response.json()['access_token'] if response.status_code == 200 else response.reason
+        
+        if response.status_code == 200 :
+            return ( True, response.json()['access_token'] )
+        else :
+            return ( False, response.reason )
