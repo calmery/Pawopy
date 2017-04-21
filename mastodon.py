@@ -29,12 +29,10 @@ class Mastodon :
             return response.json() if response.status_code == 200 else response.reason
     
     @staticmethod
-    def getAuthorizationUrl( client_id=None, 
+    def getAuthorizationUrl( client_id, 
                              base_url=DEFAULT_REST_BASE, 
                              scope='read write follow', 
                              redirect_uri='urn:ietf:wg:oauth:2.0:oob' ) :
-        if client_id == None :
-            return ''
         return base_url + '/oauth/authorize' + '?' +  urlencode( {
             'redirect_uri' : redirect_uri,
             'response_type': 'code',
