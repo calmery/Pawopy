@@ -1,6 +1,7 @@
 import requests
 from urllib.parse import urlencode
 from promise import Promise
+from streaming import Stream
 
 import settings
 
@@ -39,6 +40,14 @@ class Mastodon :
             return ( True, response.json() )
         else :
             return ( False, response.reason )
+    
+    def stream( self ) :
+        stream = Stream( {
+            'api_url'     : self.api_url,
+            'access_token': self.config['access_token']
+        } )
+        
+        return stream
     
     @staticmethod
     def createOAuthApp( url=DEFAULT_OAUTH_APPS_ENDPOINT, 
