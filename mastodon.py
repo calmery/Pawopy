@@ -73,12 +73,12 @@ class Mastodon :
                         client_secret,
                         authorization_code, 
                         base_url=DEFAULT_REST_BASE, 
-                        redirectUri='urn:ietf:wg:oauth:2.0:oob' ) :
+                        redirect_uri='urn:ietf:wg:oauth:2.0:oob' ) :
         response = requests.post( base_url + '/oauth/token', headers={
             'Content-Type': 'application/x-www-form-urlencoded'
         }, params={
             'grant_type'   : 'authorization_code',
-            'redirect_uri' : 'urn:ietf:wg:oauth:2.0:oob',
+            'redirect_uri' : redirect_uri,
             'client_id'    : client_id,
             'client_secret': client_secret,
             'code'         : authorization_code
