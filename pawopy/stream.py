@@ -4,7 +4,7 @@ import json
 from abc import abstractmethod
 from urllib.parse import urljoin
 
-from pawopy.model import Status
+from pawopy.model import Status, Notification
 
 class StreamListener :
     
@@ -43,8 +43,10 @@ class Stream :
             if not line :
                 method_name = 'on_{event}'.format( event = event['event'] )
                 data = event['data']
-                if event['event'] == 'update' or event['event'] == 'notification' :
+                if event['event'] == 'update' :
                     data = Status( json.loads( event['data'] ) )
+                if event['event'] == 'notification' :
+                    data = Notification( json.loads( event['data'] ) )
                 method = operator.methodcaller( method_name, data )
                 method( self.listener )
                 event = {}

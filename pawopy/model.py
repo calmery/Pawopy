@@ -159,8 +159,11 @@ class Notification :
         self.id         = notification['id']
         self.type       = notification['type']
         self.created_at = notification['created_at']
-        self.account    = notification['account']
-        self.status     = notification['status']
+        self.account    = Account( notification['account'] )
+        try :
+            self.status = Status( notification['status'] )
+        except :
+            self.status = ''
 
 '''
 Relationship
@@ -205,8 +208,14 @@ class Results :
     
     def __init__( self, results ) :
         self.accounts = results['accounts']
+        for i in range( 0, len( self.accounts ) ) :
+            self.accounts[i] = Account( self.accounts[i] )
         self.statuses = results['statuses']
+        for i in range( 0, len( self.statuses ) ) :
+            self.statuses[i] = Status( self.statuses[i] )
         self.hashtags = results['hashtags']
+        for i in range( 0, len( self.hashtags ) ) :
+            self.hashtags[i] = Tag( self.hashtags[i] )
 
 '''
 Status
@@ -252,8 +261,14 @@ class Status :
         self.spoiler_text           = status['spoiler_text']
         self.visibility             = status['visibility']
         self.media_attachments      = status['media_attachments']
+        for i in range( 0, len( self.media_attachments ) ) :
+            self.media_attachments[i] = Attachment( self.media_attachments[i] )
         self.mentions               = status['mentions']
+        for i in range( 0, len( self.mentions ) ) :
+            self.mentions[i] = Mention( self.mentions[i] )
         self.tags                   = status['tags']
+        for i in range( 0, len( self.tags ) ) :
+            self.tags[i] = Tag( self.tags[i] )
         self.application            = Application( status['application'] )
         
 '''
@@ -265,5 +280,11 @@ url	 The URL of the hashtag
 class Tag :
     
     def __init__( self, tag ) :
-        self.name = tag['name']
-        self.url  = tag['url']
+        try :
+            self.name = tag['name']
+        except :
+            self.name = ''
+        try :
+            self.url  = tag['url']
+        except :
+            self.url = ''
