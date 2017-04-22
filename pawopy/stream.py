@@ -4,7 +4,7 @@ import json
 from abc import abstractmethod
 from urllib.parse import urljoin
 
-from model import Status
+from pawopy.model import Status
 
 class StreamListener :
     
