@@ -37,6 +37,7 @@ api.delete( path [, params] )
 
 api.get( 'timelines/home' )
 ```
+It mayn't work because it hasn't done enough test...
 ```python
 # Timeline
 
