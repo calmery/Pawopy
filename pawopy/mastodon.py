@@ -229,9 +229,9 @@ class Mastodon :
     
     @staticmethod
     def create_oauth_app( url=DEFAULT_REST_BASE, 
-                        client_name='mastodon-python', 
-                        scopes='read write follow', 
-                        redirect_uri='urn:ietf:wg:oauth:2.0:oob' ) :
+                          client_name='mastodon-python', 
+                          scopes='read write follow', 
+                          redirect_uri='urn:ietf:wg:oauth:2.0:oob' ) :
         response = requests.post( urljoin( url, '/api/v1/apps' ), {
             'client_name'  : client_name,
             'redirect_uris': redirect_uri,
@@ -242,22 +242,22 @@ class Mastodon :
 
     @staticmethod
     def get_authorization_url( client_id, 
-                             url=DEFAULT_REST_BASE, 
-                             scope='read write follow', 
-                             redirect_uri='urn:ietf:wg:oauth:2.0:oob' ) :
+                               url=DEFAULT_REST_BASE, 
+                               scopes='read write follow', 
+                               redirect_uri='urn:ietf:wg:oauth:2.0:oob' ) :
         return urljoin( url, '/oauth/authorize' + '?' +  urlencode( {
             'redirect_uri' : redirect_uri,
             'response_type': 'code',
             'client_id'    : client_id,
-            'scope'        : scope
+            'scope'        : scopes
         } ) )
 
     @staticmethod
     def get_access_token( client_id, 
-                        client_secret,
-                        authorization_code, 
-                        url=DEFAULT_REST_BASE, 
-                        redirect_uri='urn:ietf:wg:oauth:2.0:oob' ) :
+                          client_secret,
+                          authorization_code, 
+                          url=DEFAULT_REST_BASE, 
+                          redirect_uri='urn:ietf:wg:oauth:2.0:oob' ) :
         response = requests.post( 
             urljoin( url, '/oauth/token' ), 
             headers={

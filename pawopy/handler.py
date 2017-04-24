@@ -25,7 +25,7 @@ class OAuthHandler( AuthHandler ) :
         super().__init__( url, scopes )
     
     def get_url( self ) :
-        return Mastodon.get_authorization_url( client_id=self.client_id, url=self.url, scope=self.scopes )
+        return Mastodon.get_authorization_url( client_id=self.client_id, url=self.url, scopes=self.scopes )
     
     def get_access_token( self, authorization_code ) :
         self.access_token = Mastodon.get_access_token( client_id=self.client_id, 
