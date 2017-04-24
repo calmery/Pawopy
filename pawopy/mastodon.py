@@ -273,3 +273,11 @@ class Mastodon :
         )
         response.raise_for_status()
         return response.json()['access_token']
+
+class API( Mastodon ) :
+    
+    def __init__( self, auth ) :
+        super().__init__( {
+            'url': auth.url,
+            'access_token': auth.access_token
+        } )

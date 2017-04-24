@@ -18,13 +18,16 @@ class AuthHandler :
     @abstractmethod
     def get_access_token( self ) :
         pass
+    
+    def set_access_token( self, access_token ) :
+        self.access_token = access_token
 
 class OAuthHandler( AuthHandler ) :
     
     def __init__( self, url='https://pawoo.net/', scopes='read write follow' ) :
         super().__init__( url, scopes )
     
-    def get_url( self ) :
+    def get_authorization_url( self ) :
         return Mastodon.get_authorization_url( client_id=self.client_id, url=self.url, scopes=self.scopes )
     
     def get_access_token( self, authorization_code ) :
