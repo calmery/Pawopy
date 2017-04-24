@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='Pawopy',
-    version='0.0.2',
+    version='0.0.3',
     description='A Python wrapper for the Mastodon API',
     packages=['pawopy'],
     install_requires=['requests'],

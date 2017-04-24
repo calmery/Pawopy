@@ -11,8 +11,18 @@ from pawopy import Mastodon
 
 api = Mastodon( {
   'url'         : 'http://pawoo.net/',
-  'access_token': '...' 
+  'access_token': '...'
 } )
+```
+Pawopy >= 0.0.3
+```python
+import pawopy
+
+auth = pawopy.OAuthHandler( 'https://pawoo.net' )
+auth.set_access_token( access_token )
+
+api = pawopy.API( auth )
+api.update_status( 'Hello World !' )
 ```
 ### Authorization
 ```python
@@ -26,6 +36,27 @@ url = Mastodon.get_authorization_url( client_id=app.get_client_id(), url=base_ur
 code = input( url + '\n> ' )
 
 access_token = Mastodon.get_access_token( client_id=app.get_client_id(), client_secret=app.get_client_secret(), authorization_code=code, url=base_url )
+```
+Pawopy >= 0.0.3
+```python
+import pawopy
+
+auth = pawopy.OAuthHandler( 'https://pawoo.net' )
+url  = auth.get_authorization_url()
+
+code = input( url + '\n> ' )
+
+auth.get_access_token( code )
+
+api = pawopy.API( auth )
+```
+```python
+import pawopy
+
+auth = pawopy.PasswordAuthHandler( 'https://pawoo.net' )
+auth.get_access_token( user_name, password )
+
+api = pawopy.API( auth )
 ```
 ### Methods
 ```python
@@ -101,7 +132,7 @@ api.unreblog( toot_id )
 api.create_favorite( toot_id )
 api.destroy_favorite( toot_id )
 
-api.get_status( toot_id ) 
+api.get_status( toot_id )
 api.get_status_reblogged_by( toot_id )
 api.get_status_favorited_by( toot_id )
 
@@ -127,7 +158,7 @@ from pawopy import Mastodon, Stream, StreamListener
 
 api = Mastodon( {
   'url'         : 'http://pawoo.net/',
-  'access_token': '...' 
+  'access_token': '...'
 } )
 
 class PawopyListener( StreamListener ) :
