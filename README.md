@@ -42,11 +42,11 @@ Pawopy >= 0.0.3
 import pawopy
 
 auth = pawopy.OAuthHandler( 'https://pawoo.net' )
-url  = auth.get_authorization_url()
+url = auth.get_authorization_url()
 
 code = input( url + '\n> ' )
 
-auth.get_access_token( code )
+access_token = auth.get_access_token( code )
 
 api = pawopy.API( auth )
 ```
@@ -54,7 +54,7 @@ api = pawopy.API( auth )
 import pawopy
 
 auth = pawopy.PasswordAuthHandler( 'https://pawoo.net' )
-auth.get_access_token( user_name, password )
+access_token = auth.get_access_token( user_name, password )
 
 api = pawopy.API( auth )
 ```
