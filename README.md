@@ -5,16 +5,6 @@ A Python wrapper for the Mastodon API
 ```
 $ pip install pawopy
 ```
-
-```python
-from pawopy import Mastodon
-
-api = Mastodon( {
-  'url'         : 'http://pawoo.net/',
-  'access_token': '...'
-} )
-```
-Pawopy >= 0.0.3
 ```python
 import pawopy
 
@@ -25,19 +15,6 @@ api = pawopy.API( auth )
 api.update_status( 'Hello World !' )
 ```
 ### Authorization
-```python
-from pawopy import Mastodon
-
-base_url = 'https://friends.nico'
-
-app = Mastodon.create_oauth_app( url=base_url )
-url = Mastodon.get_authorization_url( client_id=app.get_client_id(), url=base_url )
-
-code = input( url + '\n> ' )
-
-access_token = Mastodon.get_access_token( client_id=app.get_client_id(), client_secret=app.get_client_secret(), authorization_code=code, url=base_url )
-```
-Pawopy >= 0.0.3
 ```python
 import pawopy
 
@@ -154,12 +131,12 @@ params {
 ```
 ### Streaming
 ```python
-from pawopy import Mastodon, Stream, StreamListener
+from pawopy import OAuthHandler, Stream, StreamListener
 
-api = Mastodon( {
-  'url'         : 'http://pawoo.net/',
-  'access_token': '...'
-} )
+auth = pawopy.OAuthHandler( 'https://pawoo.net' )
+auth.set_access_token( access_token )
+
+api = pawopy.API( auth )
 
 class PawopyListener( StreamListener ) :
   def on_update( self, toot ) :
