@@ -31,6 +31,7 @@ class Mastodon :
         self.url          = urljoin( ( config['url'] if 'url' in config else DEFAULT_REST_BASE ), '/api/v1/' )
         self.access_token = config['access_token']
         self.session      = requests.Session()
+        self.timeout      = config['timeout']
         self.session.headers.update( { 
             'Authorization': 'Bearer ' + self.access_token 
         } )
@@ -45,7 +46,7 @@ class Mastodon :
         return self.request( self.session.delete, urljoin( self.url, path ), params )
     
     def request( self, method, path, params={} ) :
-        response = method( urljoin( self.url, path ), params=params )
+        response = method( urljoin( self.url, path ), params=params, timeout=self.timeout )
         response.raise_for_status()
         return response.json()
     
@@ -276,8 +277,9 @@ class Mastodon :
 
 class API( Mastodon ) :
     
-    def __init__( self, auth ) :
+    def __init__( self, auth, timeout=60 ) :
         super().__init__( {
             'url': auth.url,
-            'access_token': auth.access_token
+            'access_token': auth.access_token,
+            'timeout': timeout
         } )
