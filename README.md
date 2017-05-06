@@ -1,5 +1,5 @@
 # Pawopy
-A Python wrapper for the Mastodon API
+A Python wrapper for the Mastodon API like tweepy
 
 ### Installation
 ```
