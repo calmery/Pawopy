@@ -78,8 +78,8 @@ api.destroy_mute( user_id )
 api.show_relationship( user_id )
 
 api.follow_requests()
-api.authorize( id )
-api.reject( id )
+api.authorize( user_id )
+api.reject( user_id )
 
 # Notification
 
